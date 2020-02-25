@@ -1,4 +1,5 @@
 #source: https://mlcourse.ai/articles/topic2-visual-data-analysis-in-python/
+#Aula 2
 import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,6 +7,9 @@ import seaborn as sns
 
 df = pd.read_csv('./data/telecom_churn.csv')
 print(df.head())
+
+#=======================Visualizacao univariada====================================
+
 features = ['Total day minutes', 'Total intl calls'] #classe no eixo x e quantidade no y
 df[features].hist(figsize=(10, 4))
 #kernel density plots:
@@ -31,3 +35,20 @@ print(df.describe())
 print(df[features].describe())
 #frequency table
 print(df['Churn'].value_counts()) #Only a small part of the clients canceled their subscription to the telecom service
+#bar plot:
+_, axes = plt.subplots(nrows=1, ncols=2, figsize=(12,4))
+sns.countplot(x='Churn', data=df, ax=axes[0])
+sns.countplot(x='Customer service calls', data=df, ax=axes[1])
+plt.show()
+#===============Visualizacao multivaridada============================================
+
+#Matriz de correlação:
+
+#primeiro tirar as variaveis nao numericas
+numericas = list(set(df.columns) - set(['State','International Plan', 'Voice mail plan', 
+                                        'Area code', 'Churn', 'Customer service calls' ]))
+corr_matriz = df[numericas].corr()
+sns.heatmap(corr_matriz)
+#tirando as variaveis dependentes:
+
+plt.show()

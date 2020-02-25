@@ -1,4 +1,5 @@
 #source: https://medium.com/open-machine-learning-course/open-machine-learning-course-topic-1-exploratory-data-analysis-with-pandas-de57880f1a68
+#Aula 1
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
