@@ -67,3 +67,19 @@ sns.jointplot('Total day minutes', 'Total night minutes', data=df, kind='kde', c
 #quantitativa e categorica
 sns.lmplot('Total day minutes', 'Total night minutes', data=df, hue='Churn', fit_reg=False)
 plt.show()
+
+#separando os churn em True e False e fazendo os boxplot
+#numericas.append('Customer service calls')
+fig, axes = plt.subplots(nrows=3, ncols=4, figsize=(10,7))
+for idx, feat in enumerate(numericas):
+    ax = axes[int(idx / 4), idx % 4]
+    sns.boxplot(x='Churn', y=feat, data=df, ax=ax)
+    ax.set_xlabel('')
+    ax.set_ylabel(feat)
+fig.tight_layout()
+plt.show()
+
+_, axes = plt.subplots(1, 2, sharey=True, figsize=(10,4))
+sns.boxplot(x='Churn', y='Total day minutes', data=df, ax=axes[0])
+sns.violinplot(x='Churn', y='Total day minutes', data=df, ax=axes[1])
+plt.show()
