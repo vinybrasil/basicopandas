@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+sns.set_style("darkgrid") #darkgrid, whitegrid, white, dark e ticks
 df = pd.read_csv('./data/telecom_churn.csv')
 print(df.head())
 
@@ -50,5 +51,19 @@ numericas = list(set(df.columns) - set(['State','International Plan', 'Voice mai
 corr_matriz = df[numericas].corr()
 sns.heatmap(corr_matriz)
 #tirando as variaveis dependentes:
+numericas = list(set(numericas) - set(['Total day charge', 'Total eve charge', 'Total night charge', 'Total intl charge']))
+plt.show()
+plt.scatter(df['Total day minutes'], df['Total night minutes'])
+#juntar dois plots:
+sns.set_style("darkgrid")
+sns.jointplot(x='Total day minutes', y='Total night minutes', data=df, kind='scatter') 
+plt.show()
+sns.jointplot('Total day minutes', 'Total night minutes', data=df, kind='kde', color='g')
+# %config InlineBackend.figure_format = 'png'
+# %config InlineBackend.figure_format = 'retina'
+# para arrumar no notebook
+#sns.pairplot(df[numericas]) # é mto ruim e pesado
 
+#quantitativa e categorica
+sns.lmplot('Total day minutes', 'Total night minutes', data=df, hue='Churn', fit_reg=False)
 plt.show()
